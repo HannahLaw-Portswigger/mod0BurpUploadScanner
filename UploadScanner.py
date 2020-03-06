@@ -711,7 +711,7 @@ class BurpExtender(IBurpExtender, IScannerCheck,
         # main split view
         splitpane = JSplitPane(JSplitPane.HORIZONTAL_SPLIT)
         splitpane.setLeftComponent(JScrollPane(options))
-        splitpane.setRightComponent(JScrollPane(sc))
+        splitpane.setRightComponent(sc)
 
         # The CloseableTab will add itself to its parent
         CloseableTab(str(self._ui_tab_index), self._main_jtabedpane, splitpane,
@@ -4856,7 +4856,7 @@ class FlexiInjector(Injector):
             # one line base64: alphanum, %2B, %2F
             lambda x: urllib.quote(x.encode("base64").replace('\n', '').replace('\r', '').strip()),
             # one line base64: alphanum, %2B, /
-            
+
             lambda x: x.encode("base64").replace('\n', '').replace('\r', '').strip().rstrip('='),  # one line base64: alphanum, +, / but missing end =
             lambda x: urllib.quote(x.encode("base64").replace('\n', '').replace('\r', '').strip().rstrip('='), ''),
             # one line base64: alphanum, %2B, %2F but missing end =
@@ -5232,7 +5232,7 @@ class InsertionPointProviderForActiveScan(IScannerInsertionPointProvider):
             if injector:
                 # First the feature that we can detect CSVs
                 insertion_points.extend(self.get_csv_insertion_points(injector))
-                
+
                 # Insertion provider that puts payloads into the image as text, to pwn OCR software as in
                 # https://medium.com/@vishwaraj101/ocr-to-xss-42720d85f7fa
                 insertion_points.extend(self.get_inverse_ocr_insertion_points(injector))
@@ -8496,7 +8496,7 @@ class OptionsPanel(JPanel, DocumentListener, ActionListener):
             # Check first if we need to give the user the option to reconfigure exiftool
             binaries_to_check = ("exiftool",  # Generic, should trigger on Linux and MacOS if exiftool already installed
                                  os.getcwd() + os.path.sep + 'bin' + os.path.sep + "exiftool.pl",  # If Perl installed (macOS/Linux)
-                                 "exiftool.exe",  # Windows already installed 
+                                 "exiftool.exe",  # Windows already installed
                                  os.getcwd() + os.path.sep + 'bin' + os.path.sep + "exiftool_win.exe"  # Windows
                                  )
             for path in binaries_to_check:
@@ -8954,7 +8954,7 @@ class OptionsPanel(JPanel, DocumentListener, ActionListener):
         except ValueError:
             self.throttle_time = 0.0
             OptionsPanel.mark_misconfigured(self.lbl_throttle_time)
-        
+
         try:
             self.sleep_time = float(FloydsHelpers.u2s(self.tf_sleep_time.getText()))
             OptionsPanel.mark_configured(self.lbl_sleep_time)
@@ -9205,7 +9205,7 @@ class OptionsPanel(JPanel, DocumentListener, ActionListener):
         # Refactor, but first create a state diagram. The dependencies are crazy, eg. if we want to gray out
         # the start button on misconfiguration, then we need to check if the scan is running when we enable it again
         # when a correct configuration is found, etc.
-        
+
         # temp var that flags if anything is misconfigured
         misconfiguration = False
 
